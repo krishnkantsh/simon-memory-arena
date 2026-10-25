@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simon — Memory Arena</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body><main class="app">
+<header><h1>SIMON</h1><div class="subtitle">MEMORY SEQUENCE GAME</div><div class="tagline">Watch · Remember · Repeat</div></header>
+<section id="authScreen" class="screen active">
+ <div class="panel auth-card">
+  <div class="eyebrow">Welcome to Memory Arena</div><h2>Create your game ID</h2>
+  <p class="desc">Create a unique player ID to save your best score and appear on the shared leaderboard. Already have an ID? Sign in to continue.</p>
+  <div class="tabs"><button class="tab active" id="newTab" type="button">Create new ID</button><button class="tab" id="existingTab" type="button">Existing player</button></div>
+  <form id="authForm">
+   <div id="nameField"><label class="field" for="displayName">Your display name</label><input class="input" id="displayName" maxlength="20" placeholder="e.g. Krish" autocomplete="nickname"></div>
+   <label class="field" for="playerId">Game user ID</label><input class="input" id="playerId" maxlength="18" minlength="3" placeholder="e.g. KRISH123" autocomplete="username" required>
+   <div class="hint">3–18 characters: letters, numbers, underscore.</div>
+   <button class="btn primary block" id="authSubmit" type="submit">CREATE MY GAME ID</button><div class="error" id="authError" role="alert"></div>
+  </form>
+  <div class="tiny">This version saves player IDs and scores in the server database. Sign-in uses ID only as requested; anyone who knows an ID can access that player's score, so do not use sensitive information as your ID.</div>
+ </div>
+</section>
+<section id="gameScreen" class="screen">
+ <div class="userbar"><div>PLAYER <strong id="currentName"></strong> <span style="color:#8298d3">·</span> <span id="currentId"></span></div><button class="linkbtn" id="switchUser">Switch player</button></div>
+ <div class="game-layout">
+  <aside class="panel stats"><div class="stat"><div class="stat-icon">🏆</div><div><div class="stat-label">SCORE</div><div class="stat-value score" id="score">0</div></div></div><div class="stat"><div class="stat-icon">▥</div><div><div class="stat-label">LEVEL</div><div class="stat-value level" id="level">1</div></div></div><div class="stat"><div class="stat-icon">♛</div><div><div class="stat-label">YOUR BEST</div><div class="stat-value best" id="best">0</div></div></div></aside>
+  <div class="game-wrap"><div class="board"><div class="quads"><button class="pad red" data-pad="0" aria-label="Red button"></button><button class="pad green" data-pad="1" aria-label="Green button"></button><button class="pad blue" data-pad="2" aria-label="Blue button"></button><button class="pad yellow" data-pad="3" aria-label="Yellow button"></button></div><div class="hub">SIMON</div></div><div class="status" id="status" aria-live="polite">Press START GAME to begin</div><div class="actions"><button class="btn primary big" id="start">▶ &nbsp; START GAME</button></div></div>
+  <aside class="panel how"><h2>🎮 &nbsp; HOW TO PLAY</h2><div class="steps"><div class="step"><span class="num">1</span><span>Press Start to begin.</span></div><div class="step"><span class="num" style="border-color:#00dca0;color:#00e7a5">2</span><span>Watch the sequence of colors.</span></div><div class="step"><span class="num" style="border-color:#ffd22e;color:#ffd22e">3</span><span>Repeat the same sequence by clicking the buttons.</span></div><div class="step"><span class="num" style="border-color:#ff4c70;color:#ff6b8a">4</span><span>Each round adds one more step.</span></div></div></aside>
+ </div>
+</section>
+<section id="resultScreen" class="screen"><div class="panel auth-card" style="max-width:760px"><div class="eyebrow" style="text-align:center">Round complete</div><h2 style="text-align:center">Game over, <span id="resultName"></span>!</h2><div class="result-caption">YOUR SCORE</div><div class="result-score" id="finalScore">0</div><div class="result-message" id="resultMessage">Great effort!</div><div class="leaderboard"><h3>🏆 Top 3 players — all-time best</h3><div id="topThree"></div></div><div class="result-actions"><button class="btn primary" id="playAgain">↻ &nbsp; PLAY AGAIN</button><button class="btn" id="backGame">Back to game</button><button class="btn" id="resultSwitch">Switch player</button></div><div class="tiny">Leaderboard is shared across users through the configured server database.</div></div></section>
+<div class="footer">MEMORY ARENA · Train your focus, one sequence at a time</div>
+</main><script src="{{ url_for('static', filename='game.js') }}" defer></script></body></html>
